@@ -1,0 +1,41 @@
+Example of replicating p8 database:
+curl -H 'Content-Type: application/json' -X POST http://localhost:5984/_replicate -d ' {"source": "http://p8portal.phys.washington.edu:5984/dripline_conf","target":"http://localhost:5984/dripline_conf"}'
+
+
+
+
+location goes in
+
+_design/(design name)/index.html
+
+curl -X PUT http://localhost:5984/(database)/_design/(designname)/(index.html) 
+
+possible have to include ?rev=(rev)
+
+
+here:
+ Fri, Sep 17, 2010 at 10:13 AM, slymak <slymak@...> wrote:
+> how to include attachment into cURL?
+
+Once you've created $database/$document, just PUT the contents of the
+file you want to attach to
+/$database/$document/$attachmentName?rev=$rev, where $rev is the
+revision from your newly-created document.  Example:
+
+curl -X DELETE http://localhost:5984/test
+curl -X PUT http://localhost:5984/test
+(cd jcl
+for file in *; do
+    rev="$(curl -X PUT http://localhost:5984/test/$file -d '{"name":
+"'"$file"'", "date": "'"$IDATE"'" }' | sed -ne
+'s/^.*"rev":"\([^"]*\)".*$/\1/p')"
+    curl --data-binary @"$file"  -X PUT
+http://localhost:5984/test/$file/contents?rev="$rev"
+done)
+--
+
+sending a command plan:
+1) make the json command structure
+2) send to couch, keep the id
+3) long poll for changes to that id
+4) print result to screen

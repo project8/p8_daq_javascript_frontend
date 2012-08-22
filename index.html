@@ -1,0 +1,155 @@
+<html>
+<head>
+<style type="text/css">
+@font-face {
+	font-family: "orbitron";
+	src: url('orbitron-medium-webfont.ttf');
+}
+h2 { font-family: "orbitron", Georgia, serif;}
+input {
+/* font-family: "orbitron"; */
+outline: none;
+border: none;
+}
+body {
+	background-color: #000000; 
+}
+/******For the round-edge outlines******/
+.container_box {
+	padding: 10px;
+	margin: 10px;
+	border: solid;
+	width: 500px;
+	min-height: 200px;
+	border-radius: 15px;
+	overflow: auto;
+	float: left;
+/*	color: rgb(144,238,144); */
+	color: rgb(255,129,0);
+}
+
+/***** For the terminal looking window *******/
+.terminal_text {
+	font-family: "orbitron";
+	font-size: 16px;
+	width: 450px;
+	vertical-align: bottom;
+}
+input {
+	color: rgb(255,129,0);
+	background-color: #000000;
+}
+.input_text {
+color: green;
+}
+.error_text {
+color: red;
+}
+.response_text {
+color: rgb(0,183,285);
+}
+
+/****** Styling the Plots***/
+div.dygraph-legend {
+	color: rgb(255,129,0);
+	background-color: #000000 !important;
+}
+
+/****** For smoother looking buttons *******/
+.wordbutton {
+	/* font: 12px Arial; */
+	width: auto;
+	height: auto;
+	display: auto;
+	float: left;
+	border: solid;
+	border-radius: 10px;
+	margin: 2px;
+	padding: 3px 10px;
+	color: rgb(255,129,0);
+	background-color: #000000;
+	cursor: pointer;
+
+}
+
+/* control of tabbed spaces here */
+/*
+.tabs {
+	overflow: visible;
+	position: relative;
+	z-index: 1;
+	display: block;
+}
+.tabs section {
+	float: left;
+	z-index: 1;
+}
+.tabs section h3 {
+	margin: 0 1px 0 0;
+	background: #d9d9d9;
+	padding: 3px 10px;
+	font: bold 12px Arial;
+	border-radius: 5px;
+    cursor: hand;
+    cursor: pointer;			 
+}
+.tabs section.current_tab h3 { background: #eee; cursor: default; }
+.tabs section div.tab_content {
+	position: absolute;
+	left: 0;
+	z-index: 2;
+    width: 100%;
+    height: 100%;
+    background: #eee;
+    display: none; 
+    padding: 0 10px;
+    font: 12px Arial;
+}
+.tabs section div.checkboxlike {
+	padding: 3px 10px;
+	font: 12px Arial;
+	width: auto;
+	height: auto;
+	float: left;
+	border: solid;
+	border-radius: 10px;
+	margin: 2px;
+}
+
+.tabs section.current_tab div { display: block; }
+*/
+
+
+</style>
+ <script src="/_utils/script/json2.js"></script>
+ <script src="/_utils/script/sha1.js"></script>
+ <script src="/_utils/script/jquery.js?1.4.2"></script>
+ <script src="/_utils/script/jquery.couch.js?0.11.0"></script>
+ <script src="/_utils/script/jquery.dialog.js?0.11.0"></script>
+<script type='text/javascript' src='https://www.google.com/jsapi'></script>
+<script type='text/javascript' src='dygraph-combined.js'></script>
+<script type='text/javascript' src='couch_gvis_interface.js'></script>
+<script type='text/javascript' src='dripline_js_interface.js'></script>
+<script type='text/javascript' src='modular_display.js'></script>
+<script type='text/javascript'>
+    google.load('visualization', '1', {packages:['table']});
+    //google.setOnLoadCallback(initial_queries);
+	start_command_listener();
+	start_logger_listener();
+	updateChannelData();
+	updateLoggerData();
+   </script>
+</head>
+
+<body>
+<div onclick="var c=new CommandTerminal('workspace')" class="wordbutton">Press Me For A Command Terminal</div>
+<div onclick="var d=new ChannelTable('workspace')" class="wordbutton">Press Me For A Channel Table</div>
+<div onclick="var d=new LoggerPlot('workspace')" class="wordbutton">Press Me For A Plot</div>
+<div onclick="var d=new SpectrumDisplay('workspace')" class="wordbutton">Press Me For A Spectrum Display</div>
+<br>
+<div style="{display:block;}">
+</div><br>
+<div id="workspace" class="workspace">
+</div>
+</body>
+</html>
